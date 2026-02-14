@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes 🍳 - Payal's Things</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', cursive;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #fff;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.3);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.5);
+            transform: translateX(-5px);
+        }
+
+        .add-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .add-section h2 {
+            color: #f5576c;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #f093fb;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .recipe-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .recipe-card h3 {
+            color: #f5576c;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #f093fb;
+            padding-bottom: 10px;
+        }
+
+        .recipe-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: #fff0f5;
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            color: #f5576c;
+        }
+
+        .recipe-ingredients, .recipe-instructions {
+            margin-bottom: 15px;
+        }
+
+        .recipe-ingredients h4, .recipe-instructions h4 {
+            color: #f093fb;
+            margin-bottom: 8px;
+        }
+
+        .recipe-ingredients p, .recipe-instructions p {
+            color: #555;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .delete-btn {
+            background: #ff6b6b;
+            padding: 8px 15px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .delete-btn:hover {
+            background: #ff5252;
+        }
+
+        .stickers {
+            position: fixed;
+            font-size: 2.5em;
+            pointer-events: none;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .sticker1 { top: 15%; left: 8%; animation-delay: 0s; }
+        .sticker2 { top: 60%; right: 5%; animation-delay: 1s; }
+        .sticker3 { bottom: 10%; left: 5%; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .recipes-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stickers sticker1">🍰</div>
+    <div class="stickers sticker2">🥗</div>
+    <div class="stickers sticker3">🍕</div>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <header>
+            <h1>🍳 My Recipes 🍳</h1>
+        </header>
+
+        <div class="add-section">
+            <h2>Add a New Recipe</h2>
+            <form id="recipe-form">
+                <div class="form-group">
+                    <label for="recipe-name">Recipe Name:</label>
+                    <input type="text" id="recipe-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-time">Cooking Time (e.g., 30 mins):</label>
+                    <input type="text" id="recipe-time">
+                </div>
+                <div class="form-group">
+                    <label for="recipe-servings">Servings:</label>
+                    <input type="text" id="recipe-servings">
+                </div>
+                <div class="form-group">
+                    <label for="recipe-ingredients">Ingredients (one per line):</label>
+                    <textarea id="recipe-ingredients" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-instructions">Instructions:</label>
+                    <textarea id="recipe-instructions" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-url">Recipe URL (optional):</label>
+                    <input type="url" id="recipe-url" placeholder="https://example.com/recipe">
+                </div>
+                <button type="submit">Add Recipe ✨</button>
+            </form>
+        </div>
+
+        <div class="recipes-grid" id="recipes-grid"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCvKNZR-dCK5hZI9wQjUJCd143Mcts3a3c",
+            authDomain: "payals-things.firebaseapp.com",
+            projectId: "payals-things",
+            storageBucket: "payals-things.firebasestorage.app",
+            messagingSenderId: "134692974053",
+            appId: "1:134692974053:web:4c9a259535a2f9ba33130c"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Load recipes from Firestore
+        async function loadRecipes() {
+        // Load recipes from Firestore
+        async function loadRecipes() {
+            const snapshot = await db.collection('recipes').orderBy('timestamp', 'desc').get();
+            const grid = document.getElementById('recipes-grid');
+            grid.innerHTML = '';
+
+            snapshot.forEach((doc) => {
+                const recipe = doc.data();
+                const card = document.createElement('div');
+                card.className = 'recipe-card';
+                card.innerHTML = `
+                    <h3>${recipe.name}</h3>
+                    <div class="recipe-meta">
+                        ${recipe.time ? `<span class="meta-item">⏱️ ${recipe.time}</span>` : ''}
+                        ${recipe.servings ? `<span class="meta-item">🍽️ ${recipe.servings} servings</span>` : ''}
+                    </div>
+                    <div class="recipe-ingredients">
+                        <h4>Ingredients:</h4>
+                        <p>${recipe.ingredients}</p>
+                    </div>
+                    <div class="recipe-instructions">
+                        <h4>Instructions:</h4>
+                        <p>${recipe.instructions}</p>
+                    </div>
+                    ${recipe.url ? `<p style="margin-bottom: 10px;"><a href="${recipe.url}" target="_blank" style="color: #f5576c; text-decoration: underline;">🔗 View Original Recipe</a></p>` : ''}
+                    <button class="delete-btn" onclick="deleteRecipe('${doc.id}')">Delete Recipe</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Add new recipe
+        document.getElementById('recipe-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const recipe = {
+                name: document.getElementById('recipe-name').value,
+                time: document.getElementById('recipe-time').value,
+                servings: document.getElementById('recipe-servings').value,
+                ingredients: document.getElementById('recipe-ingredients').value,
+                instructions: document.getElementById('recipe-instructions').value,
+                url: document.getElementById('recipe-url').value,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            await db.collection('recipes').add(recipe);
+
+            this.reset();
+            loadRecipes();
+        });
+
+        // Delete recipe
+        async function deleteRecipe(recipeId) {
+            if (confirm('Are you sure you want to delete this recipe?')) {
+                await db.collection('recipes').doc(recipeId).delete();
+                loadRecipes();
+            }
+        }
+
+        // Load recipes on page load
+        loadRecipes();
+    </script>
+</body>
+</html>

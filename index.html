@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payal's Things ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', cursive;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: 4em;
+            color: #fff;
+            text-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::before {
+            content: '✨';
+            position: absolute;
+            left: -60px;
+            animation: sparkle 2s infinite;
+        }
+
+        h1::after {
+            content: '✨';
+            position: absolute;
+            right: -60px;
+            animation: sparkle 2s infinite 1s;
+        }
+
+        /* Butterfly animations */
+        .butterfly {
+            position: fixed;
+            font-size: 2em;
+            pointer-events: none;
+            animation: butterfly-fly 15s infinite;
+            opacity: 0.8;
+        }
+
+        .butterfly1 { top: 10%; left: -50px; animation-delay: 0s; }
+        .butterfly2 { top: 30%; left: -50px; animation-delay: 3s; }
+        .butterfly3 { top: 50%; left: -50px; animation-delay: 6s; }
+        .butterfly4 { top: 70%; left: -50px; animation-delay: 9s; }
+        .butterfly5 { top: 20%; left: -50px; animation-delay: 12s; }
+
+        @keyframes butterfly-fly {
+            0% { 
+                left: -50px; 
+                transform: translateY(0) scale(1);
+            }
+            25% { 
+                transform: translateY(-30px) scale(1.1);
+            }
+            50% { 
+                left: 50%;
+                transform: translateY(0) scale(1);
+            }
+            75% { 
+                transform: translateY(-30px) scale(1.1);
+            }
+            100% { 
+                left: 110%;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Meep and Moop floating text */
+        .float-text {
+            position: fixed;
+            font-size: 1.2em;
+            font-weight: bold;
+            pointer-events: none;
+            animation: float-gentle 4s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .meep1 { top: 15%; left: 15%; color: #FFD700; animation-delay: 0s; }
+        .meep2 { top: 65%; right: 20%; color: #FF69B4; animation-delay: 1s; }
+        .moop1 { top: 40%; left: 80%; color: #87CEEB; animation-delay: 2s; }
+        .moop2 { top: 80%; left: 25%; color: #98FB98; animation-delay: 3s; }
+
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        /* Upload button */
+        .upload-section {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 3px solid white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+
+        .modal-content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input[type="file"],
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-family: inherit;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn-upload {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #ddd;
+            color: #555;
+        }
+
+        /* Uploaded images gallery */
+        .images-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery-image {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease-out;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .delete-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            line-height: 1;
+            display: none;
+        }
+
+        .gallery-image:hover .delete-image {
+            display: block;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .nav-header h2 {
+            color: #667eea;
+            font-size: 1.5em;
+        }
+
+        .add-category-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 25px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.2);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .delete-category {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.9em;
+            z-index: 10;
+            display: none;
+        }
+
+        .nav-links li:hover .delete-category {
+            display: block;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            h1::before, h1::after { display: none; }
+            .nav-links { grid-template-columns: 1fr; }
+            .upload-section { bottom: 15px; right: 15px; }
+            .upload-btn { padding: 12px 20px; font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Butterflies -->
+    <div class="butterfly butterfly1">🦋</div>
+    <div class="butterfly butterfly2">🦋</div>
+    <div class="butterfly butterfly3">🦋</div>
+    <div class="butterfly butterfly4">🦋</div>
+    <div class="butterfly butterfly5">🦋</div>
+
+    <!-- Meep and Moop -->
+    <div class="float-text meep1">meep</div>
+    <div class="float-text meep2">meep</div>
+    <div class="float-text moop1">moop</div>
+    <div class="float-text moop2">moop</div>
+
+    <div class="container">
+        <header>
+            <h1>Payal's Things</h1>
+        </header>
+
+        <nav>
+            <div class="nav-header">
+                <h2>My Categories</h2>
+                <button class="add-category-btn" onclick="openCategoryModal()">+ Add Category</button>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <!-- Categories will be loaded here -->
+            </ul>
+        </nav>
+
+        <div class="images-gallery" id="images-gallery">
+            <!-- Uploaded images will appear here -->
+        </div>
+    </div>
+
+    <!-- Upload Image Button -->
+    <div class="upload-section">
+        <button class="upload-btn" onclick="openImageModal()">🖼️ Add Image</button>
+    </div>
+
+    <!-- Image Upload Modal -->
+    <div class="modal" id="image-modal">
+        <div class="modal-content">
+            <h2>Add an Image</h2>
+            <div class="form-group">
+                <label>Paste image URL:</label>
+                <input type="text" id="image-url" placeholder="https://example.com/image.jpg">
+                <small style="color: #666; display: block; margin-top: 5px;">
+                    Tip: Upload to <a href="https://imgur.com" target="_blank" style="color: #667eea;">Imgur</a> or <a href="https://imgbb.com" target="_blank" style="color: #667eea;">ImgBB</a> to get a URL
+                </small>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-upload" onclick="uploadImage()">Add Image</button>
+                <button class="btn-cancel" onclick="closeImageModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div class="modal" id="category-modal">
+        <div class="modal-content">
+            <h2>Add New Category</h2>
+            <div class="form-group">
+                <label>Category Name:</label>
+                <input type="text" id="category-name" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label>Emoji:</label>
+                <input type="text" id="category-emoji" maxlength="2" placeholder="🎯">
+            </div>
+            <div class="form-group">
+                <label>Page URL (filename.html):</label>
+                <input type="text" id="category-url" placeholder="my-page.html">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-upload" onclick="addCategory()">Add Category</button>
+                <button class="btn-cancel" onclick="closeCategoryModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCvKNZR-dCK5hZI9wQjUJCd143Mcts3a3c",
+            authDomain: "payals-things.firebaseapp.com",
+            projectId: "payals-things",
+            storageBucket: "payals-things.firebasestorage.app",
+            messagingSenderId: "134692974053",
+            appId: "1:134692974053:web:4c9a259535a2f9ba33130c"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Gradient colors for categories
+        const categoryColors = [
+            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+            'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+            'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+            'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+            'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)',
+            'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
+            'linear-gradient(135deg, #f8b500 0%, #fceabb 100%)'
+        ];
+
+        // Initialize default categories in Firestore
+        async function initializeCategories() {
+            const categoriesRef = db.collection('settings').doc('categories');
+            const doc = await categoriesRef.get();
+            
+            if (!doc.exists) {
+                const defaultCategories = [
+                    { name: 'Recipes', emoji: '🍳', url: 'recipes.html' },
+                    { name: 'Workouts', emoji: '💪', url: 'workouts.html' },
+                    { name: 'Books', emoji: '📚', url: 'books.html' },
+                    { name: 'Vision Board', emoji: '🎨', url: 'vision-board.html' }
+                ];
+                await categoriesRef.set({ list: defaultCategories });
+            }
+        }
+
+        // Load and display categories from Firestore
+        async function loadCategories() {
+            const categoriesRef = db.collection('settings').doc('categories');
+            const doc = await categoriesRef.get();
+            
+            if (doc.exists) {
+                const categories = doc.data().list || [];
+                const navLinks = document.getElementById('nav-links');
+                navLinks.innerHTML = '';
+
+                categories.forEach((cat, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <a href="${cat.url}" style="background: ${categoryColors[index % categoryColors.length]}">
+                            <span class="emoji">${cat.emoji}</span>${cat.name}
+                        </a>
+                        ${index >= 4 ? `<button class="delete-category" onclick="deleteCategory(${index})">×</button>` : ''}
+                    `;
+                    navLinks.appendChild(li);
+                });
+            }
+        }
+
+        // Category management
+        async function openCategoryModal() {
+            const categoriesRef = db.collection('settings').doc('categories');
+            const doc = await categoriesRef.get();
+            const categories = doc.exists ? (doc.data().list || []) : [];
+            
+            if (categories.length >= 10) {
+                alert('Maximum 10 categories allowed!');
+                return;
+            }
+            document.getElementById('category-modal').classList.add('active');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('category-modal').classList.remove('active');
+            document.getElementById('category-name').value = '';
+            document.getElementById('category-emoji').value = '';
+            document.getElementById('category-url').value = '';
+        }
+
+        async function addCategory() {
+            const name = document.getElementById('category-name').value.trim();
+            const emoji = document.getElementById('category-emoji').value.trim();
+            const url = document.getElementById('category-url').value.trim();
+
+            if (!name || !emoji || !url) {
+                alert('Please fill in all fields!');
+                return;
+            }
+
+            const categoriesRef = db.collection('settings').doc('categories');
+            const doc = await categoriesRef.get();
+            const categories = doc.exists ? (doc.data().list || []) : [];
+            
+            categories.push({ name, emoji, url });
+            await categoriesRef.set({ list: categories });
+            
+            closeCategoryModal();
+            loadCategories();
+        }
+
+        async function deleteCategory(index) {
+            if (confirm('Delete this category?')) {
+                const categoriesRef = db.collection('settings').doc('categories');
+                const doc = await categoriesRef.get();
+                const categories = doc.data().list || [];
+                
+                categories.splice(index, 1);
+                await categoriesRef.set({ list: categories });
+                loadCategories();
+            }
+        }
+
+        // Image upload functionality
+        function openImageModal() {
+            document.getElementById('image-modal').classList.add('active');
+        }
+
+        function closeImageModal() {
+            document.getElementById('image-modal').classList.remove('active');
+            document.getElementById('image-url').value = '';
+        }
+
+        async function uploadImage() {
+            const urlInput = document.getElementById('image-url').value.trim();
+
+            if (urlInput) {
+                await saveImage(urlInput);
+                closeImageModal();
+            } else {
+                alert('Please enter an image URL!');
+            }
+        }
+
+        async function saveImage(imageSrc) {
+            await db.collection('homeImages').add({
+                url: imageSrc,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            loadImages();
+        }
+
+        async function loadImages() {
+            const snapshot = await db.collection('homeImages').orderBy('timestamp', 'desc').get();
+            const gallery = document.getElementById('images-gallery');
+            gallery.innerHTML = '';
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const div = document.createElement('div');
+                div.className = 'gallery-image';
+                div.innerHTML = `
+                    <img src="${data.url}" alt="Uploaded image" onerror="this.parentElement.style.display='none'">
+                    <button class="delete-image" onclick="deleteImage('${doc.id}')">×</button>
+                `;
+                gallery.appendChild(div);
+            });
+        }
+
+        async function deleteImage(imageId) {
+            await db.collection('homeImages').doc(imageId).delete();
+            loadImages();
+        }
+
+        // Initialize on load
+        initializeCategories();
+        loadCategories();
+        loadImages();
+    </script>
+</body>
+</html>
