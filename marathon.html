@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London Marathon 2026 🏃‍♀️ - Payal's Things</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', cursive;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 50%, #4ECDC4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.3);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.5);
+            transform: translateX(-5px);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #fff;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+        }
+
+        .race-date {
+            font-size: 1.5em;
+            color: #fff;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .motivational {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .motivational p {
+            font-size: 1.8em;
+            color: #FF6B6B;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .schedule-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .schedule-section h2 {
+            color: #FF6B6B;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 4px solid #FFE66D;
+            padding-bottom: 15px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #FF6B6B 0%, #FFE66D 50%, #4ECDC4 100%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: #FF6B6B;
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .timeline-item.special::before {
+            background: #FFE66D;
+            width: 20px;
+            height: 20px;
+            left: -30px;
+        }
+
+        .time {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #FF6B6B;
+            margin-bottom: 5px;
+        }
+
+        .activity {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .activity.highlight {
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+
+        .support-crew {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .support-crew h2 {
+            color: #4ECDC4;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 4px solid #FFE66D;
+            padding-bottom: 15px;
+        }
+
+        .pit-stop {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .pit-stop:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .pit-stop h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mile-marker {
+            background: rgba(255,255,255,0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .pit-stop ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .pit-stop li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1.1em;
+        }
+
+        .pit-stop li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .finish-line {
+            background: linear-gradient(135deg, #FFE66D 0%, #FF6B6B 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .finish-line h2 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+        }
+
+        .finish-line p {
+            font-size: 1.5em;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+        }
+
+        .emojis {
+            position: fixed;
+            font-size: 3em;
+            pointer-events: none;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .emoji1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .emoji2 { top: 30%; right: 8%; animation-delay: 1s; }
+        .emoji3 { bottom: 20%; left: 10%; animation-delay: 2s; }
+        .emoji4 { top: 60%; right: 5%; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .race-date { font-size: 1.2em; }
+            .timeline { padding-left: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="emojis emoji1">🏃‍♀️</div>
+    <div class="emojis emoji2">🎽</div>
+    <div class="emojis emoji3">💪</div>
+    <div class="emojis emoji4">🏅</div>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <header>
+            <h1>🏃‍♀️ London Marathon 2026 🏃‍♀️</h1>
+            <p class="race-date">Sunday, April 26, 2026</p>
+        </header>
+
+        <div class="motivational">
+            <p>You've got this, Payal! 26.2 miles of pure determination! 🔥</p>
+        </div>
+
+        <div class="schedule-section">
+            <h2>📅 Race Day Schedule</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">7:00 AM</div>
+                    <div class="activity">Wake up</div>
+                </div>
+
+                <div class="timeline-item special">
+                    <div class="time">7:20 AM</div>
+                    <div class="activity highlight">Coffee One ☕</div>
+                    <div class="activity">Sameer to dial in Devocion beans - Americano</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">7:45 AM</div>
+                    <div class="activity">Stretch, Theragun, Foam Roll</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">8:15 AM</div>
+                    <div class="activity">Payal gets ready</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">8:30 AM</div>
+                    <div class="activity">Prepare fuel</div>
+                </div>
+
+                <div class="timeline-item special">
+                    <div class="time">8:40 AM</div>
+                    <div class="activity highlight">Second Coffee ☕</div>
+                    <div class="activity">Iced Americano</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">8:45 AM</div>
+                    <div class="activity">Aai does hair</div>
+                </div>
+
+                <div class="timeline-item special">
+                    <div class="time">9:00 AM</div>
+                    <div class="activity highlight">Eat Breakfast 🥐</div>
+                </div>
+
+                <div class="timeline-item special">
+                    <div class="time">9:30 AM</div>
+                    <div class="activity highlight">Leave for the Start! 🚗</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-crew">
+            <h2>🎯 Support Crew Pit Stops</h2>
+            
+            <div class="pit-stop">
+                <h3>
+                    📍 Deptford
+                    <span class="mile-marker">Mile 7</span>
+                </h3>
+                <ul>
+                    <li>Water refill</li>
+                </ul>
+            </div>
+
+            <div class="pit-stop">
+                <h3>
+                    📍 Mudchute
+                    <span class="mile-marker">Mile 17</span>
+                </h3>
+                <ul>
+                    <li>Packet of Tailwind</li>
+                    <li>Water</li>
+                    <li>SIS/Huma handover</li>
+                </ul>
+            </div>
+
+            <div class="pit-stop">
+                <h3>
+                    📍 Cannon Street
+                    <span class="mile-marker">Mile 24</span>
+                </h3>
+                <ul>
+                    <li>Water/Gatorade</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="finish-line">
+            <h2>🏁 The Mall Finish Line 🏁</h2>
+            <p>Mile 26.2 - You're a marathoner! 🎉</p>
+        </div>
+    </div>
+</body>
+</html>
