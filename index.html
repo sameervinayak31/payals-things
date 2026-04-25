@@ -515,19 +515,14 @@
 
         // Initialize default categories in Firestore
         async function initializeCategories() {
-            const categoriesRef = db.collection('settings').doc('categories');
-            const doc = await categoriesRef.get();
-            
-            if (!doc.exists) {
-                const defaultCategories = [
+            const categoriesRef = [
                     { name: 'Recipes', emoji: '🍳', url: 'recipes.html' },
                     { name: 'Workouts', emoji: '💪', url: 'workouts.html' },
                     { name: 'Books', emoji: '📚', url: 'books.html' },
                     { name: 'Vision Board', emoji: '🎨', url: 'vision-board.html' },
                     { name: 'Payal\'s Marathon!!!', emoji: '🏃‍♀️', url: 'marathon.html' }
                 ];
-                await categoriesRef.set({ list: defaultCategories });
-            }
+            const doc = await categoriesRef.get();
         }
 
         // Load and display categories from Firestore
